@@ -39,3 +39,23 @@ fetchData
     .catch((error) => {
         console.log(error);
     });
+
+    //  Error handling best practices
+// using .catch() at the end of oyur promise chain to catch all errors
+doSomething()
+    .then(() => doAntherThing())
+    .catch((error => console.log("An error Occured:", error)))
+
+// if inside async/await, always wrap in the try-catch al errors
+const order =  async() => {
+try{
+const user = await fetchUser();
+const posts = await fetchPosts(user.id);
+console.log(posts);
+}
+catch(error){
+console.log(error);
+}
+}
+order();
+
