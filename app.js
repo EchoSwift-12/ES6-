@@ -11,16 +11,49 @@
 // }
 
 // Throwing Custom Errors
+// const  divide  =  (a, b) =>{
+//  if(b == 0){
+//     throw new Error("/nCannot divide with zero");
+//  }
+//  return a/b;
+// }
+// try{
+//  console.log(divide(10, 0));
+// }
+// catch(err) {
+// console.log("opps! Error", err.message);
+// }
 
-const  divide  =  (a, b) =>{
- if(b == 0){
-    throw new Error("Cannot divide with zero");
- }
- return a/b;
+// Finally
+// try {
+// console.log("Trying..");
+// throw new Error("opps!...");
+// }
+
+// catch(e){
+//  console.log("Caught an error", e.message);
+// }
+
+// finally{
+//     console.log("Finally block always runs.");
+// }
+
+
+// Task
+const func = (a, b) =>{
+    if(b == 0){
+        throw new Error("ERROR DETECTED");
+    }
+    return a/b;
 }
-try{
- console.log(divide(10, 0));
+
+try {
+    console.log(func(2, 0));
 }
-catch(err) {
-console.log("opps! Error", err.message);
+catch (err){
+    console.log("b is zero", err.message);
 }
+
+func();
+// output: b is zero ERROR DETECTED
+
