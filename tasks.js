@@ -64,6 +64,33 @@ chaining
     })
 chaining;
 
+// method 2
+const placeOrder = () => {
+    Promise.resolve("Order Placed");
+}
+const processOrder = () => {
+    Promise.resolve("Order Processed");
+}
+const shipOrder = () => {
+    Promise.resolve("Order Shipped");
+}
+placeOrder()
+    .then((message) => {
+        console.log(message);
+        return processOrder();
+    })
+    .then((message) => {
+        console.log(message);
+        return shipOrder();
+    })
+    .then((message) => {
+        console.log(message)
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+
 // Task 3: Using Promise.all
 // You have two asynchronous tasks: one to fetch a list of users and another to fetch a list of posts.
 //  Use Promise.all to execute both promises simultaneously and log the results when both are fulfilled.
@@ -103,14 +130,57 @@ const fetchAPI = () => {
             return response.json();
         })
 
-
-    .then((message) => {
-    console.log("fetched data", message);
-})
-    .catch((error) => {
-        console.log("Error Occurred",error);
-    });
+        .then((message) => {
+            console.log("fetched data", message);
+        })
+        .catch((error) => {
+            console.log("Error Occurred", error);
+        });
 }
 fetchAPI;
 
+Task 5: Implement Promise.allSettled
+Create two promises: one that resolves and another that rejects.
+ Use Promise.allSettled() to wait for both promises to finish and log their results.
+
+const fulfil = Promise.resolve("Rsolved promise");
+const reject = Promise.reject("rejects promise");
+Promise.allSettled([fulfil, reject])
+    .then((results) => {
+        console.log(results);
+    })
+
+// Task 6: Error Handling in Chaining
+// Write a promise chain with multiple .then() calls. 
+// In one of the .then() calls, simulate an error by rejecting the promise. 
+// Use .catch() to handle the error and log it to the console.
+const promiseChain = Promise.resolve("start")
+    .then((result) => {
+        console.log(result);
+        return "step1";
+    })
+    .then((result) => {
+        console.log(result);
+        throw new Error("Something went wrong");
+    })
+    .then((result) => {
+        console.log(result);
+    })
+    .catch((error) => {
+        console.log("error caught", error.message);
+    })
+
+//  Task 7: Delay Function with Promises
+//  Write a function delay(ms) that returns a promise which resolves 
+//  after a given number of milliseconds.
+// Test it by delaying a console.log message for 2 seconds.
+
+const delay = (ms) => {
+    return new Promise((resolve) =>
+        setTimeout(resolve, ms));
+}
+delay(2000)
+    .then(() => {
+        console.log("message delayed for 2 seconds");
+    })
 
