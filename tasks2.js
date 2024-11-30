@@ -19,7 +19,7 @@ asyncFunc();
 // Use try...catch to handle the error.
 async function tryCatchFunc() {
     try {
-        result = await  Promise.reject("Something went wrong!");
+        result = await Promise.reject("Something went wrong!");
     }
     catch (error) {
         console.error("error:", error);
@@ -66,7 +66,7 @@ fetchURL()
     });
 
 // good method
-// using try catch metch with async await
+// using try catch method with async await
 async function fetchURL2() {
     try {
         data = await fetch("https://jsonplaceholder.typicode.com/posts/1");
@@ -97,12 +97,12 @@ const prom2 = new Promise((resolve) => {
     }, 3000);
 })
 
-const waitForBoth = async() =>{
-    try{
+const waitForBoth = async () => {
+    try {
         const results = await Promise.all([prom2, prom2]);
         console.log("results", results)
     }
-    catch(error){
+    catch (error) {
         console.log("error:", error.message);
     }
 }
@@ -110,7 +110,54 @@ waitForBoth();
 
 
 // Delay Function
-// Write a delay function that takes a number of milliseconds as an argument and returns a promise that resolves after that delay.
+// Write a delay function that takes a number of milliseconds as an argument 
+// and returns a promise that resolves after that delay.
 // Use it in an async function to log "Start", wait 3 seconds, and then log "End".
 
+async function delayFunc(ms) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, ms);
+    })
+}
 
+async function run() {
+    console.log("start");
+    await delayFunc(3000);
+    console.log("end");
+}
+run();
+// ---------------Real-Life Scenario Tasks--------------
+// ---Fetch Multiple Resources
+// Fetch data from two APIs:
+// https://jsonplaceholder.typicode.com/users
+// https://jsonplaceholder.typicode.com/posts
+// Use Promise.all to fetch them simultaneously 
+// and log the number of users and posts.
+async function fetchingMultipleResources() {
+    try {
+        const [users, posts] = await Promise.all([
+            fetch("https://jsonplaceholder.typicode.com/users")
+                .then((response) => {
+                    return response.json();
+                }),
+            fetch("https://jsonplaceholder.typicode.com/posts")
+                .then((response) => {
+                    return response.json();
+                })
+        ]);
+        console.log(`number of users ${users.length}`);
+        console.log(`number of posts ${posts.length}`);
+    }
+    catch (error) {
+        console.log("error:", error);
+    }
+}
+fetchingMultipleResources();
+// number of users 10
+//  number of posts 100
+
+// Retry on Failure
+// Write an async function that fetches data from an API.
+// If the fetch fails, retry up to 3 times with a delay of 1 second between retries.
